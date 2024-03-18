@@ -1,6 +1,14 @@
+import { Coat } from '@/enums/coat.enum';
 import { Gender } from '@/enums/gender.enum';
 import { Specie } from '@/enums/specie.enum';
-import { IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { Type } from 'class-transformer';
+import {
+  IsDate,
+  IsEnum,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+} from 'class-validator';
 
 export class CreatePetDto {
   @IsNotEmpty()
@@ -10,6 +18,10 @@ export class CreatePetDto {
   @IsNotEmpty()
   @IsEnum(Gender)
   gender: Gender;
+
+  @IsNotEmpty()
+  @IsEnum(Coat)
+  coat: Coat;
 
   @IsNotEmpty()
   sterilization: boolean;
@@ -23,8 +35,12 @@ export class CreatePetDto {
   specie: Specie;
 
   @IsNotEmpty()
-  @IsNumber({ maxDecimalPlaces: 0 })
-  breed: number;
+  @IsDate()
+  @Type(() => Date)
+  birthdate: Date;
+
+  @IsNotEmpty()
+  breed: string;
 
   @IsNotEmpty()
   @IsNumber({ maxDecimalPlaces: 0 })

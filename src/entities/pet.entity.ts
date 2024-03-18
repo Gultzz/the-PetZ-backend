@@ -8,6 +8,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Client } from './client.entity';
+import { Coat } from '@/enums/coat.enum';
 
 @Entity({ name: 'pet' })
 export class Pet {
@@ -35,8 +36,17 @@ export class Pet {
   })
   specie: Specie;
 
-  @Column('int')
-  breed: number;
+  @Column({
+    type: 'enum',
+    enum: Coat,
+  })
+  coat: Coat;
+
+  @Column('datetime')
+  birthdate: Date;
+
+  @Column()
+  breed: string;
 
   @CreateDateColumn()
   createdAt: Date;
